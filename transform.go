@@ -20,7 +20,6 @@ import (
 	_ "image/gif" // register gif format
 	"image/jpeg"
 	"image/png"
-
 	"github.com/disintegration/imaging"
 	"willnorris.com/go/gifresize"
 )
@@ -99,7 +98,6 @@ func resizeParams(m image.Image, opt Options) (w, h int, resize bool) {
 	} else {
 		h = int(opt.Height)
 	}
-
 	// never resize larger than the original image unless specifically allowed
 	if !opt.ScaleUp {
 		if w > imgW {
@@ -129,7 +127,7 @@ func transformImage(m image.Image, opt Options) image.Image {
 			if w == 0 || h == 0 {
 				m = imaging.Resize(m, w, h, resampleFilter)
 			} else {
-				m = imaging.Thumbnail(m, w, h, resampleFilter)
+				m = imaging.Resize(m, w, h, imaging.Lanczos)
 			}
 		}
 	}
